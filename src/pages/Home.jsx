@@ -5,6 +5,7 @@ import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import Experiences from '../components/Experiences';
 import Educations from '../components/Educations';
+import Contact from '../components/Contact';
 
 export default function Home() {
   return (
@@ -29,9 +30,9 @@ export default function Home() {
         {/* dinamic component */}
         <Educations />
 
-        <section id="contact" className="min-h-[200px] border-t border-base-300 pt-8">
-          <h2 className="text-2xl font-bold">Contact</h2>
-        </section>
+        {/* dinamic component */}
+        <Contact />
+        
       </main>
 
       <Footer />
