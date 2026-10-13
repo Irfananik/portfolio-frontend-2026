@@ -128,7 +128,7 @@ export default function Contact() {
                     type="text"
                     name="name"
                     required
-                    placeholder="John Doe"
+                    placeholder="Morshed Bhuiyan"
                     value={formData.name}
                     onChange={handleChange}
                     className="input input-bordered w-full bg-base-100 focus:input-primary transition-colors"
@@ -146,7 +146,7 @@ export default function Contact() {
                     type="email"
                     name="email"
                     required
-                    placeholder="john@example.com"
+                    placeholder="argmbhuiyanjp@gmail.com"
                     value={formData.email}
                     onChange={handleChange}
                     className="input input-bordered w-full bg-base-100 focus:input-primary transition-colors"
