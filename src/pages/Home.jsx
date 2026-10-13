@@ -2,6 +2,9 @@ import Navbar from '../components/Navbar';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
 import Projects from '../components/Projects';
+import Skills from '../components/Skills';
+import Experiences from '../components/Experiences';
+import Educations from '../components/Educations';
 
 export default function Home() {
   return (
@@ -17,17 +20,14 @@ export default function Home() {
         {/* dinamic component */}
         <Projects />
 
-        <section id="skills" className="min-h-[200px] border-t border-base-300 pt-8">
-          <h2 className="text-2xl font-bold">Skills</h2>
-        </section>
+        {/* dinamic component */}
+        <Skills />
 
-        <section id="experience" className="min-h-[200px] border-t border-base-300 pt-8">
-          <h2 className="text-2xl font-bold">Experience</h2>
-        </section>
+        {/* dinamic component */}
+        <Experiences />
 
-        <section id="education" className="min-h-[200px] border-t border-base-300 pt-8">
-          <h2 className="text-2xl font-bold">Education</h2>
-        </section>
+        {/* dinamic component */}
+        <Educations />
 
         <section id="contact" className="min-h-[200px] border-t border-base-300 pt-8">
           <h2 className="text-2xl font-bold">Contact</h2>
