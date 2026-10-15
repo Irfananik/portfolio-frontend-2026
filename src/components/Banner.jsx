@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import API from '../api/axios';
 import profileImage from '../assets/images/myPhoto.jpg';
 import { Download, ChevronDown, FileText } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Banner() {
+  const { t } = useLanguage();
   const [cvLinks, setCvLinks] = useState({
     en: '/resume_en.pdf',
     ja: '/resume_ja.pdf',
@@ -19,7 +21,7 @@ export default function Banner() {
             ja: data.ja || '/resume_ja.pdf',
           });
         }
-      } catch (err) {
+      } catch {
         console.log('Using default local CV files');
       }
     };
@@ -49,28 +51,28 @@ export default function Banner() {
         {/* Bio & Actions */}
         <div className="text-center lg:text-left space-y-4">
           <div className="badge badge-primary badge-outline font-medium text-xs sm:text-sm">
-            MERN Stack Developer & KCGI Student
+            {t.banner.badge}
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Hi, I'm <span className="text-primary">Morshed Bhuiyan</span>
+            {t.banner.greeting} <span className="text-primary">{t.banner.name}</span>
           </h1>
           <p className="text-base sm:text-lg text-base-content/80 max-w-xl">
-            Master's student in Applied Information Technology at Kyoto College of Graduate Studies for Informatics (KCGI), specializing in full-stack web development and AI integration.
+            {t.banner.bio}
           </p>
           
           <div className="pt-2 flex flex-wrap gap-3 justify-center lg:justify-start">
             <a href="#projects" className="btn btn-primary btn-sm sm:btn-md">
-              Explore Projects
+              {t.banner.exploreBtn}
             </a>
             <a href="#contact" className="btn btn-outline btn-sm sm:btn-md">
-              Get in Touch
+              {t.banner.contactBtn}
             </a>
 
             {/* Dynamic CV Dropdown */}
             <div className="dropdown dropdown-top sm:dropdown-bottom dropdown-end sm:dropdown-start">
               <div tabIndex={0} role="button" className="btn btn-accent btn-sm sm:btn-md gap-2">
                 <Download className="w-4 h-4" />
-                Download CV
+                {t.banner.downloadCv}
                 <ChevronDown className="w-3.5 h-3.5 opacity-80" />
               </div>
               <ul
@@ -87,7 +89,7 @@ export default function Banner() {
                     className="flex items-center gap-2 py-2 text-sm font-medium hover:text-primary"
                   >
                     <FileText className="w-4 h-4 text-primary" />
-                    <span>English CV (EN)</span>
+                    <span>{t.banner.cvEn}</span>
                   </a>
                 </li>
                 <li>
@@ -100,7 +102,7 @@ export default function Banner() {
                     className="flex items-center gap-2 py-2 text-sm font-medium hover:text-primary"
                   >
                     <FileText className="w-4 h-4 text-secondary" />
-                    <span>Japanese CV (履歴書)</span>
+                    <span>{t.banner.cvJa}</span>
                   </a>
                 </li>
               </ul>

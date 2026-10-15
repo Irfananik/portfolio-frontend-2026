@@ -1,8 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ShieldCheck, Menu } from 'lucide-react';
-import ThemeToggle from './ThemeToggle'; // Import the new component
+import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
+  const { t } = useLanguage();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
@@ -15,11 +18,11 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: 'Projects', href: 'projects' },
-    { name: 'Skills', href: 'skills' },
-    { name: 'Experience', href: 'experience' },
-    { name: 'Education', href: 'education' },
-    { name: 'Contact', href: 'contact' },
+    { name: t.nav.projects, href: 'projects' },
+    { name: t.nav.skills, href: 'skills' },
+    { name: t.nav.experience, href: 'experience' },
+    { name: t.nav.education, href: 'education' },
+    { name: t.nav.contact, href: 'contact' },
   ];
 
   return (
@@ -51,8 +54,11 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* Navbar End: Theme Toggle, Admin Portal, & Mobile Menu */}
-      <div className="navbar-end gap-2">
+      {/* Navbar End: Language Toggle, Theme Toggle, Admin Portal, & Mobile Menu */}
+      <div className="navbar-end gap-1.5 sm:gap-2">
+        {/* Multilingual Selector Dropdown */}
+        <LanguageToggle />
+
         {/* Independent Theme Toggle Component */}
         <ThemeToggle />
 
@@ -63,17 +69,17 @@ export default function Navbar() {
           title="Admin Control Panel"
         >
           <ShieldCheck className="w-4 h-4 text-accent" />
-          <span className="hidden sm:inline">Admin</span>
+          <span className="hidden sm:inline">{t.nav.admin}</span>
         </Link>
 
         {/* Mobile Hamburger Menu Dropdown */}
         <div className="dropdown dropdown-end md:hidden">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle btn-sm">
             <Menu className="w-5 h-5" />
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-200 rounded-box w-52 border border-base-300"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-200 rounded-box w-52 border border-base-300 space-y-1"
           >
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -81,13 +87,24 @@ export default function Navbar() {
                   <button
                     onClick={() => {
                       scrollToSection(link.href);
-                      document.activeElement?.blur();
+                      if (document.activeElement instanceof HTMLElement) {
+                        document.activeElement.blur();
+                      }
                     }}
                   >
                     {link.name}
                   </button>
                 ) : (
-                  <Link to={`/#${link.href}`}>{link.name}</Link>
+                  <Link
+                    to={`/#${link.href}`}
+                    onClick={() => {
+                      if (document.activeElement instanceof HTMLElement) {
+                        document.activeElement.blur();
+                      }
+                    }}
+                  >
+                    {link.name}
+                  </Link>
                 )}
               </li>
             ))}

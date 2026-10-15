@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import API from '../api/axios';
 import Education from './Education';
 import { GraduationCap, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Educations() {
+  const { t } = useLanguage();
   const [educations, setEducations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +18,7 @@ export default function Educations() {
         setEducations(Array.isArray(data) ? data : data.data || []);
       } catch (err) {
         console.error('Error fetching education:', err);
-        setError('Failed to load education details. Please try again later.');
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -31,7 +33,7 @@ export default function Educations() {
         {/* Section Heading */}
         <div className="flex items-center gap-3">
           <GraduationCap className="w-8 h-8 text-primary" />
-          <h2 className="text-3xl font-extrabold tracking-tight">Education & Certifications</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight">{t.sections.educationTitle}</h2>
         </div>
 
         {/* Loading Skeleton */}
@@ -51,14 +53,14 @@ export default function Educations() {
         {error && !loading && (
           <div className="alert alert-error bg-error/10 border-error/20 text-error">
             <AlertCircle className="w-5 h-5 shrink-0" />
-            <span>{error}</span>
+            <span>{t.ui.educationError}</span>
           </div>
         )}
 
         {/* Empty Data State */}
         {!loading && !error && educations.length === 0 && (
           <div className="text-center py-12 bg-base-200/50 rounded-xl border border-dashed border-base-300">
-            <p className="text-base-content/60 font-medium">No education history entries added yet.</p>
+            <p className="text-base-content/60 font-medium">{t.ui.noEducation}</p>
           </div>
         )}
 

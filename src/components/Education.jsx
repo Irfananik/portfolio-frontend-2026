@@ -1,6 +1,8 @@
-import { GraduationCap, Calendar, Award, ExternalLink, BookOpen, Building } from 'lucide-react';
+import { Calendar, Award, ExternalLink, BookOpen, Building } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Education({ education }) {
+  const { t } = useLanguage();
   const { institution, degree, fieldOfStudy, startDate, endDate, courses, type, certificateUrl } = education;
 
   // Helper function to color badge according to type
@@ -58,7 +60,7 @@ export default function Education({ education }) {
         <div className="space-y-2 pt-1">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-base-content/70 uppercase tracking-wider">
             <BookOpen className="w-3.5 h-3.5 text-primary" />
-            Key Coursework & Skills
+            {t.ui.keyCoursework}
           </div>
           <div className="flex flex-wrap gap-1.5">
             {courses.map((course, index) => (
@@ -83,7 +85,7 @@ export default function Education({ education }) {
             className="btn btn-xs sm:btn-sm btn-ghost gap-1 text-primary hover:bg-primary/10"
           >
             <Award className="w-4 h-4" />
-            <span>View Certificate</span>
+            <span>{t.ui.viewCertificate}</span>
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>

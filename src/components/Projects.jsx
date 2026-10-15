@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import API from '../api/axios';
 import Project from './Project';
 import { FolderGit2, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Projects() {
+  const { t } = useLanguage();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +19,7 @@ export default function Projects() {
         setProjects(Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : []);
       } catch (err) {
         console.error('Error fetching projects:', err);
-        setError('Failed to load projects. Please try again later.');
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -32,7 +34,7 @@ export default function Projects() {
         {/* Section Heading */}
         <div className="flex items-center gap-3">
           <FolderGit2 className="w-7 h-7 text-primary" />
-          <h2 className="text-3xl font-extrabold tracking-tight">Featured Projects</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight">{t.sections.projectsTitle}</h2>
         </div>
 
         {/* Loading State */}
@@ -53,14 +55,14 @@ export default function Projects() {
         {error && !loading && (
           <div className="alert alert-error bg-error/10 border-error/20 text-error">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <span>{error}</span>
+            <span>{t.ui.projectsError}</span>
           </div>
         )}
 
         {/* Empty Data State */}
         {!loading && !error && projects.length === 0 && (
           <div className="text-center py-12 bg-base-200/50 rounded-xl border border-dashed border-base-300">
-            <p className="text-base-content/60 font-medium">No projects found yet.</p>
+            <p className="text-base-content/60 font-medium">{t.ui.noProjects}</p>
           </div>
         )}
 

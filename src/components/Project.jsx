@@ -1,6 +1,8 @@
 import { GitBranch, ExternalLink, Code2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Project({ project }) {
+  const { t } = useLanguage();
   const { title, description, techStack, githubUrl, liveUrl, imageUrl } = project;
 
   return (
@@ -58,10 +60,10 @@ export default function Project({ project }) {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-sm btn-ghost gap-1.5 text-xs"
-            title="View Source Code"
+            title={t.ui.viewSource}
           >
             <GitBranch className="w-4 h-4" />
-            Code
+            {t.ui.code}
           </a>
         )}
 
@@ -71,10 +73,10 @@ export default function Project({ project }) {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-sm btn-primary gap-1.5 text-xs"
-            title="Live Demo"
+            title={t.ui.liveDemo}
           >
             <ExternalLink className="w-4 h-4" />
-            Live Demo
+            {t.ui.liveDemo}
           </a>
         )}
       </div>

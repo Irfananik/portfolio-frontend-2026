@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import API from '../api/axios';
 import Experience from './Experience';
 import { Briefcase, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Experiences() {
+  const { t } = useLanguage();
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +18,7 @@ export default function Experiences() {
         setExperiences(Array.isArray(data) ? data : data.data || []);
       } catch (err) {
         console.error('Error fetching experiences:', err);
-        setError('Failed to load work experience. Please try again later.');
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -31,7 +33,7 @@ export default function Experiences() {
         {/* Section Heading */}
         <div className="flex items-center gap-3">
           <Briefcase className="w-7 h-7 text-primary" />
-          <h2 className="text-3xl font-extrabold tracking-tight">Work Experience</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight">{t.sections.experienceTitle}</h2>
         </div>
 
         {/* Loading State Skeleton */}
@@ -51,14 +53,14 @@ export default function Experiences() {
         {error && !loading && (
           <div className="alert alert-error bg-error/10 border-error/20 text-error">
             <AlertCircle className="w-5 h-5 shrink-0" />
-            <span>{error}</span>
+            <span>{t.ui.experienceError}</span>
           </div>
         )}
 
         {/* Empty Data State */}
         {!loading && !error && experiences.length === 0 && (
           <div className="text-center py-12 bg-base-200/50 rounded-xl border border-dashed border-base-300">
-            <p className="text-base-content/60 font-medium">No work experience entries added yet.</p>
+            <p className="text-base-content/60 font-medium">{t.ui.noExperience}</p>
           </div>
         )}
 

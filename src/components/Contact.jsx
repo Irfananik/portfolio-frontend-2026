@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import API from '../api/axios';
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -34,7 +36,7 @@ export default function Contact() {
       setStatus({
         loading: false,
         success: false,
-        error: err.response?.data?.message || 'Failed to send message. Please try again.',
+        error: err.response?.data?.message || t.ui.submitError,
       });
     }
   };
@@ -46,9 +48,9 @@ export default function Contact() {
         <div className="flex items-center gap-3">
           <Mail className="w-8 h-8 text-primary" />
           <div>
-            <h2 className="text-3xl font-extrabold tracking-tight">Get In Touch</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight">{t.sections.contactTitle}</h2>
             <p className="text-sm text-base-content/70 mt-1">
-              Have a project in mind, a job opportunity, or just want to connect? Send me a message!
+              {t.ui.contactDescription}
             </p>
           </div>
         </div>
@@ -57,7 +59,7 @@ export default function Contact() {
           {/* Left Column: Direct Contact Info (2 Cols) */}
           <div className="lg:col-span-2 bg-base-200 border border-base-300 rounded-2xl p-6 space-y-6">
             <h3 className="text-xl font-bold text-base-content border-b border-base-300/80 pb-3">
-              Contact Information
+              {t.ui.contactInformation}
             </h3>
 
             <div className="space-y-4 text-sm">
@@ -66,7 +68,7 @@ export default function Contact() {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-xs text-base-content/60 font-semibold uppercase block">Email</span>
+                  <span className="text-xs text-base-content/60 font-semibold uppercase block">{t.ui.email}</span>
                   <a href="mailto:your.email@example.com" className="font-medium hover:text-primary transition-colors">
                     argmbhuiyanjp@gmail.com
                   </a>
@@ -78,7 +80,7 @@ export default function Contact() {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-xs text-base-content/60 font-semibold uppercase block">Phone</span>
+                  <span className="text-xs text-base-content/60 font-semibold uppercase block">{t.ui.phone}</span>
                   <a href="tel:+81000000000" className="font-medium hover:text-primary transition-colors">
                     +81 (0) +81 (0) 70-35406363
                   </a>
@@ -90,7 +92,7 @@ export default function Contact() {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-xs text-base-content/60 font-semibold uppercase block">Location</span>
+                  <span className="text-xs text-base-content/60 font-semibold uppercase block">{t.ui.location}</span>
                   <span className="font-medium">Kyoto, Japan</span>
                 </div>
               </div>
@@ -103,7 +105,7 @@ export default function Contact() {
             {status.success && (
               <div className="alert alert-success bg-success/10 border-success/20 text-success mb-6">
                 <CheckCircle className="w-5 h-5 shrink-0" />
-                <span>Thank you! Your message has been sent successfully.</span>
+                <span>{t.ui.thankYou}</span>
               </div>
             )}
 
@@ -121,7 +123,7 @@ export default function Contact() {
                 <div className="form-control w-full">
                   <label className="label">
                     <span className="label-text font-semibold text-xs uppercase tracking-wider text-base-content/70">
-                      Your Name <span className="text-error">*</span>
+                      {t.ui.yourName} <span className="text-error">*</span>
                     </span>
                   </label>
                   <input
@@ -139,7 +141,7 @@ export default function Contact() {
                 <div className="form-control w-full">
                   <label className="label">
                     <span className="label-text font-semibold text-xs uppercase tracking-wider text-base-content/70">
-                      Email Address <span className="text-error">*</span>
+                      {t.ui.emailAddress} <span className="text-error">*</span>
                     </span>
                   </label>
                   <input
@@ -158,7 +160,7 @@ export default function Contact() {
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text font-semibold text-xs uppercase tracking-wider text-base-content/70">
-                    Phone Number <span className="text-xs text-base-content/40 lowercase">(optional)</span>
+                    {t.ui.phoneNumber} <span className="text-xs text-base-content/40 lowercase">{t.ui.optional}</span>
                   </span>
                 </label>
                 <input
@@ -175,14 +177,14 @@ export default function Contact() {
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text font-semibold text-xs uppercase tracking-wider text-base-content/70">
-                    Message <span className="text-error">*</span>
+                    {t.ui.message} <span className="text-error">*</span>
                   </span>
                 </label>
                 <textarea
                   name="message"
                   required
                   rows={4}
-                  placeholder="How can I help you?"
+                  placeholder={t.ui.messagePlaceholder}
                   value={formData.message}
                   onChange={handleChange}
                   className="textarea textarea-bordered w-full bg-base-100 focus:textarea-primary transition-colors leading-relaxed"
@@ -198,12 +200,12 @@ export default function Contact() {
                 {status.loading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Sending...
+                    {t.ui.sending}
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    Send Message
+                    {t.ui.sendMessage}
                   </>
                 )}
               </button>

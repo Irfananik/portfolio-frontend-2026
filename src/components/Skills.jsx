@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import API from '../api/axios';
 import Skill from './Skill';
 import { Cpu, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Skills() {
+  const { t } = useLanguage();
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +19,7 @@ export default function Skills() {
         setSkills(Array.isArray(data) ? data : data.data || []);
       } catch (err) {
         console.error('Error fetching skills:', err);
-        setError('Failed to load skills. Please try again later.');
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -40,7 +42,7 @@ export default function Skills() {
         {/* Section Heading */}
         <div className="flex items-center gap-3">
           <Cpu className="w-7 h-7 text-primary" />
-          <h2 className="text-3xl font-extrabold tracking-tight">Technical Skills</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight">{t.sections.skillsTitle}</h2>
         </div>
 
         {/* Loading State Skeleton */}
@@ -62,14 +64,14 @@ export default function Skills() {
         {error && !loading && (
           <div className="alert alert-error bg-error/10 border-error/20 text-error">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <span>{error}</span>
+            <span>{t.ui.skillsError}</span>
           </div>
         )}
 
         {/* Empty Data State */}
         {!loading && !error && skills.length === 0 && (
           <div className="text-center py-12 bg-base-200/50 rounded-xl border border-dashed border-base-300">
-            <p className="text-base-content/60 font-medium">No skills added yet.</p>
+            <p className="text-base-content/60 font-medium">{t.ui.noSkills}</p>
           </div>
         )}
 

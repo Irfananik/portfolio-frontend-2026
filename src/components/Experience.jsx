@@ -1,6 +1,8 @@
 import { Calendar, MapPin, Building2, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Experience({ experience }) {
+  const { t } = useLanguage();
   const { role, company, location, type, startDate, endDate, isCurrent, highlights, techStack } = experience;
 
   return (
@@ -42,7 +44,7 @@ export default function Experience({ experience }) {
           <div className="flex items-center gap-1.5 text-xs font-mono bg-base-300/70 px-3 py-1.5 rounded-full w-fit">
             <Calendar className="w-3.5 h-3.5 text-primary" />
             <span>
-              {startDate} — {isCurrent ? <span className="text-primary font-bold">Present</span> : (endDate || 'Present')}
+              {startDate} — {isCurrent ? <span className="text-primary font-bold">{t.ui.present}</span> : (endDate || t.ui.present)}
             </span>
           </div>
         </div>
