@@ -10,6 +10,7 @@ import SkillManager from '../components/admin/SkillManager';
 import ExperienceManager from '../components/admin/ExperienceManager';
 import EducationManager from '../components/admin/EducationManager';
 import MessageManager from '../components/admin/MessageManager';
+import CvManager from '../components/admin/CvManager';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -191,6 +192,7 @@ export default function AdminDashboard() {
             {activeTab === 'experience' && <ExperienceManager experiences={experiences} onDelete={handleDelete} />}
             {activeTab === 'education' && <EducationManager educations={educations} onDelete={handleDelete} />}
             {activeTab === 'messages' && <MessageManager messages={messages} onDelete={handleDelete} />}
+            {activeTab === 'cv' && <CvManager />}
           </div>
         )}
       </main>

@@ -1,4 +1,4 @@
-import { FolderGit2, Cpu, Briefcase, GraduationCap, Mail, Plus } from 'lucide-react';
+import { FolderGit2, Cpu, Briefcase, GraduationCap, Mail, FileText, Plus } from 'lucide-react';
 
 export default function AdminTabs({ activeTab, setActiveTab, counts, onOpenModal }) {
   const tabs = [
@@ -7,6 +7,7 @@ export default function AdminTabs({ activeTab, setActiveTab, counts, onOpenModal
     { id: 'experience', label: 'Experience', icon: Briefcase, count: counts.experience },
     { id: 'education', label: 'Education', icon: GraduationCap, count: counts.education },
     { id: 'messages', label: 'Messages', icon: Mail, count: counts.messages },
+    { id: 'cv', label: 'CV Manager', icon: FileText },
   ];
 
   return (
@@ -24,13 +25,15 @@ export default function AdminTabs({ activeTab, setActiveTab, counts, onOpenModal
             >
               <Icon className="w-4 h-4" />
               <span>{tab.label}</span>
-              <span className="badge badge-sm badge-outline opacity-80">{tab.count}</span>
+              {tab.count !== undefined && (
+                <span className="badge badge-sm badge-outline opacity-80">{tab.count}</span>
+              )}
             </button>
           );
         })}
       </div>
 
-      {activeTab !== 'messages' && (
+      {activeTab !== 'messages' && activeTab !== 'cv' && (
         <button onClick={onOpenModal} className="btn btn-primary btn-sm gap-2 shrink-0">
           <Plus className="w-4 h-4" />
           Add {activeTab.slice(0, -1)}
