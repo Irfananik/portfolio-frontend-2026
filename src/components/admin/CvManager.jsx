@@ -14,8 +14,8 @@ export default function CvManager() {
         if (data) {
           setCvForm({ en: data.en || '', ja: data.ja || '' });
         }
-      } catch (err) {
-        console.log('No custom CV settings saved yet.');
+      } catch (error) {
+        console.warn('No custom CV settings saved yet.', error);
       } finally {
         setStatus((s) => ({ ...s, loading: false }));
       };

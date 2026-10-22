@@ -1,19 +1,40 @@
-# React + Vite
+# Portfolio Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React and Vite client for the portfolio and admin dashboard.
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Install dependencies:
 
-## React Compiler
+   ```bash
+   npm install
+   ```
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+2. Copy `.env.example` to `.env` and set `VITE_API_BASE_URL` to the backend API URL, including the `/api` path.
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+3. Start the development server:
 
-## Expanding the ESLint configuration
+   ```bash
+   npm run dev
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Deploying to Vercel
+
+1. Import this repository into Vercel.
+2. Keep the detected framework as **Vite**. The build command is `npm run build` and the output directory is `dist`.
+3. Add this Vercel environment variable for the **Production** environment:
+
+   ```
+   VITE_API_BASE_URL=https://your-backend-domain.example/api
+   ```
+
+4. Redeploy after saving the variable. `vercel.json` handles client-side route fallback for the React Router pages.
+
+The backend must allow the deployed frontend origin in its CORS configuration. Because the client sends credentials and an admin bearer token, the backend must also support credentialed requests from that exact origin. Never put backend secrets in `VITE_*` variables; Vite embeds them in the browser bundle.
+
+## Checks
+
+```bash
+npm run lint
+npm run build
+```

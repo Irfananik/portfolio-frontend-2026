@@ -1,6 +1,6 @@
 import { ExternalLink, Trash2 } from 'lucide-react';
 
-export default function ProjectManager({ projects, onDelete, onOpenModal }) {
+export default function ProjectManager({ projects, onDelete }) {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center border-b border-base-200 pb-3">

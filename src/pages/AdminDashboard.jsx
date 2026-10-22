@@ -61,7 +61,7 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    fetchAllData();
+    void Promise.resolve().then(fetchAllData);
   }, []);
 
   const handleLogout = () => {
